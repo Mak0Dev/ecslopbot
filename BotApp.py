@@ -15,11 +15,11 @@ import json
 
 from datetime import datetime, timezone
 
-BOT_NAME = "ecslop" # name it like ur ecslop revival
-BASE_URL = "https://YourURL" # put ur url here
+BOT_NAME = "ecslop"
+BASE_URL = "https://YourURL"
 DATA_FILE = "gambling_data.json"
 DAILY_CLAIM = 100
-
+COLOR = "orange"
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,10 +39,15 @@ API_HEADERS = {
     "Accept": "application/json"
 }
 
+
+def get_color():
+    return getattr(discord.Color, COLOR)()
+
+
 def get_today():
     return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-# i guess it's broken lmao
+
 def load_gambling_data():
     if not os.path.exists(DATA_FILE):
         return {}
@@ -264,6 +269,7 @@ def get_user_by_username(username: str):
 
         return None
 
+
 def get_user_info(user_id: int):
 
     url = (
@@ -306,6 +312,7 @@ def get_user_info(user_id: int):
         )
 
         return None
+
 
 def get_avatar(user_id: int):
 
@@ -526,7 +533,7 @@ async def site(
     embed = discord.Embed(
         title="Link:",
         description=f"[{BOT_NAME}]({BASE_URL}/)",
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     embed.set_thumbnail(
@@ -543,7 +550,6 @@ async def site(
     await interaction.response.send_message(
         embed=embed
     )
-
 
 
 @client.tree.command(
@@ -561,7 +567,7 @@ async def info(
             "Source: [github](https://github.com/Mak0Dev/ecslopbot)\n"
             "Made by Mak0Dev\n"
         ),
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     embed.set_thumbnail(
@@ -578,7 +584,6 @@ async def info(
     await interaction.response.send_message(
         embed=embed
     )
-
 
 
 @client.tree.command(
@@ -657,7 +662,7 @@ async def relese(
 
     embed = discord.Embed(
         title="Drop Item:",
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     if image:
@@ -778,7 +783,7 @@ async def profile(
     embed = discord.Embed(
         title=name,
         description=description,
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     if avatar:
@@ -891,7 +896,7 @@ async def avatar(
 
     embed = discord.Embed(
         title=f"{user['username']}'s Avatar",
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     embed.set_image(
@@ -928,7 +933,7 @@ async def itemidea(
 
     embed = discord.Embed(
         title="Item Idea:",
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     embed.add_field(
@@ -993,7 +998,7 @@ async def claim(
         description=(
             f"You received **{DAILY_CLAIM} coins**!"
         ),
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     embed.add_field(
@@ -1025,7 +1030,7 @@ async def stats(
 
     embed = discord.Embed(
         title=f"🎰 {interaction.user.display_name}'s Stats",
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     embed.add_field(
@@ -1148,7 +1153,7 @@ async def playingame(
 
     embed = discord.Embed(
         title="",
-        color=discord.Color.orange()
+        color=get_color()
     )
 
     result = random.randint(
@@ -1192,7 +1197,6 @@ async def playingame(
         embed=embed,
         view=view
     )
-
 
 
 @client.tree.command(
@@ -1288,6 +1292,7 @@ async def gambling(
     await interaction.response.send_message(
         embed=embed
     )
+
 
 if not TOKEN:
 
