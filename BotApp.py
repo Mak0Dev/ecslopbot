@@ -557,8 +557,9 @@ async def info(
     embed = discord.Embed(
         title="Info:",
         description=(
-            "Bot Version: 1.4\n"
-            f"Site: [{BOT_NAME}]({BASE_URL}/)"
+            "Bot Version: 1.5\n"
+            "Source: [github](https://github.com/Mak0Dev/ecslopbot)\n"
+            "Made by Mak0Dev\n"
         ),
         color=discord.Color.orange()
     )
